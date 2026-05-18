@@ -444,14 +444,12 @@ func createBoundRef(field NestedField, acc accessor) BoundReference {
 		return &boundRef[Timestamp]{field: field, acc: acc}
 	case StringType:
 		return &boundRef[string]{field: field, acc: acc}
-	case FixedType, BinaryType:
+	case FixedType, BinaryType, GeographyType, GeometryType:
 		return &boundRef[[]byte]{field: field, acc: acc}
 	case DecimalType:
 		return &boundRef[Decimal]{field: field, acc: acc}
 	case UUIDType:
 		return &boundRef[uuid.UUID]{field: field, acc: acc}
-	case GeographyType, GeometryType:
-		return &boundRef[[]byte]{field: field, acc: acc}
 	}
 	panic("unhandled bound reference type: " + field.Type.String())
 }
